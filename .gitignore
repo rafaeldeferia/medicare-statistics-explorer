@@ -1,0 +1,16 @@
+# Local R/RStudio files
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+  
+  # Runtime cache: do not publish Medicare downloads
+  data/cache/
+  *.rds
+
+# Deployment records containing local metadata
+rsconnect/
+  
+  # Operating-system files
+  .DS_Store
+Thumbs.db

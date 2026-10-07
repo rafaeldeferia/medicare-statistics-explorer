@@ -256,11 +256,15 @@ server <- function(input, output, session) {
           # STEP 4: Standardise
           # --------------------------------------------------
           
-          rv$mbs <- standardise_mbs(
+          # --------------------------------------------------
+          # STEP 4: Standardise datasets
+          # --------------------------------------------------
+          
+          mbs_clean <- standardise_mbs(
             mbs_bundle$data
           )
           
-          rv$pbs <- standardise_pbs(
+          pbs_clean <- standardise_pbs(
             pbs_bundle$data
           )
           
@@ -271,7 +275,15 @@ server <- function(input, output, session) {
           
           
           # --------------------------------------------------
-          # STEP 5: Catalogue signature
+          # STEP 5: Store datasets in reactiveValues
+          # --------------------------------------------------
+          
+          rv$mbs <- mbs_clean
+          rv$pbs <- pbs_clean
+          
+          
+          # --------------------------------------------------
+          # STEP 6: Catalogue signature
           # --------------------------------------------------
           
           rv$signature <- resource_signature(
@@ -280,19 +292,19 @@ server <- function(input, output, session) {
           
           
           # --------------------------------------------------
-          # STEP 6: Status
+          # STEP 7: Status
           # --------------------------------------------------
           
           rv$status <- paste(
             "MBS rows:",
             format(
-              nrow(rv$mbs),
+              nrow(mbs_clean),
               big.mark = ","
             ),
             
             "\nPBS rows:",
             format(
-              nrow(rv$pbs),
+              nrow(pbs_clean),
               big.mark = ","
             ),
             
